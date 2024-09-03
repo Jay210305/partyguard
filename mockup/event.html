@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Crear Evento</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear un Nuevo Evento</h1>
+        <form id="eventForm">
+            <input type="text" id="eventName" placeholder="Nombre del Evento" required>
+            <input type="date" id="eventDate" required>
+            <input type="time" id="eventTime" required>
+            <input type="text" id="eventLocation" placeholder="Ubicación" required>
+            <button type="submit">Crear Evento</button>
+        </form>
+        <div id="eventsList">
+            <h2>Eventos Creados</h2>
+            <!-- Lista de eventos -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
