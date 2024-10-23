@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import InvitadoForm from './components/InvitadoForm';
+import ListaInvitados from './components/ListaInvitados';
+import CodigoQR from './components/CodigoQR';
+import EnviarCorreo from './components/EnviarCorreo';
 
 function App() {
+  const [invitados, setInvitados] = useState([]);
+  const [qrImage, setQrImage] = useState(''); // Guardar imagen QR
+
+  const agregarInvitado = (invitado) => {
+    setInvitados([...invitados, invitado]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>PartyGuard</h1>
+      <InvitadoForm agregarInvitado={agregarInvitado} />
+      <ListaInvitados invitados={invitados} />
+      {invitados.map((invitado, index) => (
+        <div key={index}>
+          <CodigoQR invitado={invitado} setQrImage={setQrImage} /> {/* Pasar setQrImage */}
+          <EnviarCorreo invitado={invitado} qrImage={qrImage} /> {/* Pasar qrImage */}
+        </div>
+      ))}
     </div>
   );
 }
 
 export default App;
+
