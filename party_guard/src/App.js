@@ -1,9 +1,9 @@
-// src/App.js
 import React, { useState } from 'react';
 import InvitadoForm from './components/InvitadoForm';
 import ListaInvitados from './components/ListaInvitados';
 import CodigoQR from './components/CodigoQR';
 import EnviarCorreo from './components/EnviarCorreo';
+import './App.css'
 
 function App() {
   const [invitados, setInvitados] = useState([]);
@@ -20,8 +20,9 @@ function App() {
       <ListaInvitados invitados={invitados} />
       {invitados.map((invitado, index) => (
         <div key={index}>
-          <CodigoQR invitado={invitado} setQrImage={setQrImage} /> {/* Pasar setQrImage */}
-          <EnviarCorreo invitado={invitado} qrImage={qrImage} /> {/* Pasar qrImage */}
+          <CodigoQR invitado={invitado} setQrImage={setQrImage} />
+          <EnviarCorreo invitado={invitado} qrImage={qrImage} />
+          <a href="qrImage" download={qr}></a>
         </div>
       ))}
     </div>
@@ -29,4 +30,3 @@ function App() {
 }
 
 export default App;
-

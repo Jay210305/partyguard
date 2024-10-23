@@ -26,7 +26,9 @@ const EnviarCorreo = ({ invitado, qrImage }) => {
       .catch((err) => console.log('Error al enviar el correo', err));
   };
 
-  return <button onClick={enviarCorreo}>Enviar QR a {invitado.nombre}</button>;
+  return <div>
+    <button onClick={enviarCorreo}>Enviar QR a {invitado.nombre}</button>
+  </div>;
 };
 
 export default EnviarCorreo;
