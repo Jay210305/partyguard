@@ -11,6 +11,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// Lista para almacenar eventos e invitados
+let events = [];
+
 // Clave y vector de inicialización para el cifrado
 const encryptionKey = crypto.randomBytes(32); // 256 bits
 const iv = crypto.randomBytes(16); // 128 bits
@@ -41,8 +44,8 @@ app.post('/send-invite', async (req, res) => {
         secure: true,
         service: 'gmail',
         auth: {
-            user: 'partyguardmail@gmail.com',
-            pass: 'kqmt mair ymqw gbav'
+            user: 'jyanezme@gmail.com',
+            pass: 'qepy ofbm aahe ajqz'
         }
     });
 
@@ -73,7 +76,46 @@ app.post('/send-invite', async (req, res) => {
             return res.status(500).send('Error enviando correo');
         }
         res.status(200).send('Correo enviado');
+        console.log('Mail enviado')
     });
+});
+
+// Ruta para obtener eventos
+app.get('/events', (req, res) => {
+    res.json(events);
+});
+
+// Ruta para crear un nuevo evento
+app.post('/events', (req, res) => {
+    const { name } = req.body;
+    const newEvent = { id: events.length + 1, name, guests: [] };
+    events.push(newEvent);
+    res.status(201).json(newEvent);
+});
+
+// Ruta para obtener detalles de un evento por ID
+app.get('/events/:id', (req, res) => {
+    const eventId = parseInt(req.params.id);
+    const event = events.find(e => e.id === eventId);
+    if (event) {
+        res.json(event);
+    } else {
+        res.status(404).send('Evento no encontrado');
+    }
+});
+
+// Ruta para agregar un invitado a un evento
+app.post('/events/:id/invite', (req, res) => {
+    const eventId = parseInt(req.params.id);
+    const { name, email } = req.body;
+    const event = events.find(e => e.id === eventId);
+
+    if (event) {
+        event.guests.push({ name, email });
+        res.status(201).json(event);
+    } else {
+        res.status(404).send('Evento no encontrado');
+    }
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));
